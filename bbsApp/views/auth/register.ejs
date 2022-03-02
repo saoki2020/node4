@@ -1,7 +1,7 @@
-<%- include('components/header'); %>
-<%- include('components/navbar'); %>
+<%- include('../components/header'); %>
+<%- include('../components/navbar'); %>
 <div class="container mx-5">
-  <form action="./allPosts" method="post" class="needs-validation" novalidate>
+  <form action="../user/allPosts" method="post" class="needs-validation" novalidate>
     <legend class="mb-3">Register</legend>
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
@@ -34,4 +34,4 @@
     <button type="submit" name="register" value="register" class="btn btn-primary">Register</button>
   </form>
 </div>
-<%- include('components/footer'); %>
+<%- include('../components/footer'); %>

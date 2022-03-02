@@ -43,12 +43,12 @@ module.exports = {
   // tokenが無ければログイン画面へ遷移、あったらverifyする
   checkToken(req, res, next) {
     if (!req.session.token) {
-      res.redirect('login');
+      res.redirect('/auth/login');
       return
     } else {
       jwt.verify(req.session.token, jwtConfig.secret, (error, user) => {
         if (error) {
-          res.redirect('login');
+          res.redirect('/auth/login');
           return
         }
         if (user.name === req.session.username) {

@@ -1,17 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const pageTransitionController = require('../controllers/pageTransitionController');
+const indexController = require('../controllers/indexController')
+const authController = require('../controllers/authController');
+const userController = require('../controllers/userController');
 const formValidator = require('../modules/formValidator');
 const usersModel = require('../models/usersModel');
 const auth = require('../modules/authenticator');
 
 /* GET home page. */
-router.get('/', pageTransitionController.goIndex);
-router.get('/login', pageTransitionController.goLogin);
-router.get('/register', pageTransitionController.goRegister);
-router.post('/allPosts', formValidator, usersModel.insertOrSelect, auth.getToken, auth.verifyToken, pageTransitionController.doLogin);
-router.get('/allPosts', auth.checkToken, pageTransitionController.goAllPosts);
-router.get('/myPost', auth.checkToken, pageTransitionController.goMyPost);
-router.get('/signOut', pageTransitionController.doSignOut);
+router.get('/', indexController.goIndex);
+router.get('/auth/login', authController.goLogin);
+router.get('/auth/register', authController.goRegister);
+router.get('/auth/signOut', authController.doSignOut);
+router.post('/user/allPosts', formValidator, usersModel.insertOrSelect, auth.getToken, auth.verifyToken, userController.doLogin);
+router.get('/user/allPosts', auth.checkToken, userController.goAllPosts);
+router.get('/user/myPost', auth.checkToken, userController.goMyPost);
 
 module.exports = router;

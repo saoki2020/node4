@@ -1,7 +1,7 @@
-<%- include('components/header'); %>
-<%- include('components/navbar'); %>
+<%- include('../components/header'); %>
+<%- include('../components/navbar'); %>
 <div class="container mx-5">
-  <form action="./allPosts" method="post" class="row needs-validation" novalidate>
+  <form action="../user/allPosts" method="post" class="row needs-validation" novalidate>
     <legend class="mb-3">Login</legend>
     <div class="mb-3">
       <label for="email" class="form-label">E-Mail Address</label>
@@ -25,4 +25,4 @@
     <a href="">Forgot Your Password?</a>
   </form>
 </div>
-<%- include('components/footer'); %>
+<%- include('../components/footer'); %>

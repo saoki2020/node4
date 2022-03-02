@@ -9,17 +9,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/allPosts">みんなの投稿</a>
+          <a class="nav-link" href="/user/allPosts">みんなの投稿</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/myPost">投稿を作成</a>
+          <a class="nav-link" href="/user/myPost">投稿を作成</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%- data.name %>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a href="/signOut" class="dropdown-item">SignOut</a></li>
+            <li><a href="/auth/signOut" class="dropdown-item">SignOut</a></li>
           </ul>
         </li>
 
