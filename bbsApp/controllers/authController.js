@@ -7,6 +7,15 @@ module.exports = {
   goRegister(req, res) {
     res.render('auth/register', {title: 'Register'});
   },
+  doLogin(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    };
+    req.session.username = res.user.name;
+    req.session.token = res.user.token;
+    res.redirect('/users/allPosts');
+  },
   doSignOut(req, res) {
     req.session.token = null;
     req.session.username = null;

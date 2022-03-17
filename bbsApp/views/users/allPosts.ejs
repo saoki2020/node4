@@ -1,0 +1,26 @@
+<%- include('../components/header'); %>
+<%- include('../components/navbar_logged_in'); %>
+<% posts.forEach(post => { %>
+  <div class="card border-dark mb-3 mx-auto" style="width: 60rem;">
+    <div class="card-body">
+      <h5 class="card-title"> <%= post.title  %> </h5>
+      <p class="card-text"> <%= post.content %> </p>
+      <p class="card-text"> 投稿者： <%= post.name %> </p>
+      <i class="fa-regular fa-heart"></i>
+      <% if (post.name == data.name) { %>
+        <div class="container mt-3">
+          <form action="/users/editPost" method="GET" class="d-inline">
+            <input type="hidden" name="id" value=" <%= post.id %> " >
+            <button type="submit" class="btn btn-primary rounded-pill btn-sm">編集</button>
+          </form>
+          <form action="/users/deletePost" method="GET" class="d-inline">
+            <input type="hidden" name="id" value=" <%= post.id %> " >
+            <button type="submit" class="btn btn-outline-danger rounded-pill btn-sm">削除</button>
+          </form>
+        </div>
+      <% } %>
+    </div>
+  </div>
+<% }) %>
+
+<%- include('../components/footer'); %>

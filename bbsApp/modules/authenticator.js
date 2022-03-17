@@ -44,12 +44,10 @@ module.exports = {
   checkToken(req, res, next) {
     if (!req.session.token) {
       res.redirect('/auth/login');
-      return
     } else {
       jwt.verify(req.session.token, jwtConfig.secret, (error, user) => {
         if (error) {
           res.redirect('/auth/login');
-          return
         }
         if (user.name === req.session.username) {
           res.user = {

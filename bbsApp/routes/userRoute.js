@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-const formValidator = require('../modules/formValidator');
-const usersModel = require('../models/usersModel');
+const postController = require('../controllers/postController');
+const postValidator = require('../modules/postValidator');
 const auth = require('../modules/authenticator');
 
 module.exports = [
-  router.post('/users/allPosts', formValidator, usersModel.insertOrSelect, auth.getToken, auth.verifyToken, userController.doLogin),
-  router.get('/users/allPosts', auth.checkToken, userController.goAllPosts),
-  router.get('/users/myPost', auth.checkToken, userController.goMyPost)
+  router.get('/users/allPosts', auth.checkToken, postController.getAllPosts, userController.goAllPosts),
+  router.get('/users/myPost', auth.checkToken, userController.goMyPost),
+  router.post('/users/createPost', postValidator, postController.createPost),
+  router.get('/users/editPost', auth.checkToken, postController.getPickedPost, userController.goEditPost),
+  router.post('/users/editPost', auth.checkToken, postController.editPost),
+  router.get('/users/deletePost', auth.checkToken, postController.deletePost),
 ]

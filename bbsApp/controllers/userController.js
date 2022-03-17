@@ -1,19 +1,22 @@
-const { validationResult } = require('express-validator');
+const userModel = require('../models/usersModel');
 
 module.exports = {
-  doLogin(req, res) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    };
-    req.session.username = res.user.name;
-    req.session.token = res.user.token;
-    res.render('user/allPosts', { title: `Everyone's Posts`, data: res.user} );
-  },
   goAllPosts(req, res) {
-    res.render('user/allPosts', { title: `Everyone's Posts`, data: res.user} );
+    res.render('users/allPosts', { title: `Everyone's Posts`, data: res.user, posts: res.posts} );
   },
   goMyPost(req, res) {
-    res.render('user/myPost', { title: 'Post new post', data: res.user} );
+    res.render('users/myPost', { title: 'Post new post', data: res.user} );
+  },
+  async getUserName(req, res, next) {
+    await userModel.compareEmail(req, res);
+    next();
+  },
+  async createUser(req, res, next) {
+    await userModel.insertUserData(req, res);
+    next();
+  },
+  goEditPost(req, res) {
+    res.render('users/editPost', { title: 'Edit Post', data: res.user, post: res.post} );
   }
+
 }

@@ -1,0 +1,25 @@
+<%- include('../components/header'); %>
+<%- include('../components/navbar_logged_in'); %>
+<div class="container mx-5">
+  <form action="../users/createPost" method="post" class="row needs-validation" novalidate>
+    <legend class="mb-3">新規投稿</legend>
+    <div class="mb-3">
+      <label for="title" class="form-label">タイトル</label>
+      <input type="text" name="title" id="title" class="form-control" value="" required>
+      <div class="invalid-feedback">
+        タイトルを入力してください!
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">コンテンツ</label>
+      <textarea class="form-control" name="content" id="content" rows="3" value="" required></textarea>
+      <div class="invalid-feedback">
+        内容を入力してください!
+      </div>
+    </div>
+    <div class="d-grid gap-2 d-md-block">
+      <button type="submit" class="btn btn-primary">新規投稿</button>
+    </div>
+  </form>
+</div>
+<%- include('../components/footer'); %>
