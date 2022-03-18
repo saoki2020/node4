@@ -9,11 +9,11 @@
       <i class="fa-regular fa-heart"></i>
       <% if (post.name == data.name) { %>
         <div class="container mt-3">
-          <form action="/users/editPost" method="GET" class="d-inline">
+          <form action="/posts/editPost" method="GET" class="d-inline">
             <input type="hidden" name="id" value=" <%= post.id %> " >
             <button type="submit" class="btn btn-primary rounded-pill btn-sm">編集</button>
           </form>
-          <form action="/users/deletePost" method="GET" class="d-inline">
+          <form action="/posts/deletePost" method="GET" class="d-inline">
             <input type="hidden" name="id" value=" <%= post.id %> " >
             <button type="submit" class="btn btn-outline-danger rounded-pill btn-sm">削除</button>
           </form>

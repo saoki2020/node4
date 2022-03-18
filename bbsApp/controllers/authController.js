@@ -14,7 +14,7 @@ module.exports = {
     };
     req.session.username = res.user.name;
     req.session.token = res.user.token;
-    res.redirect('/users/allPosts');
+    res.redirect('/posts/allPosts');
   },
   doSignOut(req, res) {
     req.session.token = null;

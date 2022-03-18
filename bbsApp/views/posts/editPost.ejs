@@ -1,7 +1,7 @@
 <%- include('../components/header'); %>
 <%- include('../components/navbar_logged_in'); %>
 <div class="container mx-5">
-  <form action="../users/editPost" method="POST" class="row needs-validation" novalidate>
+  <form action="../posts/editPost" method="POST" class="row needs-validation" novalidate>
     <input type="hidden" name="id" value=" <%= post.id %> " >
     <legend class="mb-3">編集</legend>
     <div class="mb-3">

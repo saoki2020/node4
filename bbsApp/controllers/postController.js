@@ -2,6 +2,15 @@ const { validationResult } = require('express-validator');
 const postsModel = require('../models/postsModel');
 
 module.exports = {
+  goAllPosts(req, res) {
+    res.render('posts/allPosts', { title: `Everyone's Posts`, data: res.user, posts: res.posts} );
+  },
+  goMyPost(req, res) {
+    res.render('posts/makePost', { title: 'Make new post', data: res.user} );
+  },
+  goEditPost(req, res) {
+    res.render('posts/editPost', { title: 'Edit Post', data: res.user, post: res.post} );
+  },
   async createPost(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -12,7 +21,7 @@ module.exports = {
         name: req.session.username
       }
     }
-    res.redirect('/users/allPosts');
+    res.redirect('/posts/allPosts');
   },
   async getAllPosts(req, res, next) {
     await postsModel.selectPosts(req, res);
@@ -24,12 +33,11 @@ module.exports = {
   },
   async editPost(req, res) {
     await postsModel.updatePost(req, res);
-    res.redirect('/users/allPosts');
+    res.redirect('/posts/allPosts');
   },
   async deletePost(req, res) {
     await postsModel.deletePickedPost(req, res);
-    res.redirect('/users/allPosts');
+    res.redirect('/posts/allPosts');
   }
-
 
 }
