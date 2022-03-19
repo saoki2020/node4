@@ -21,7 +21,7 @@ module.exports = {
         name: req.session.username
       }
     }
-    res.redirect('/posts/allPosts');
+    res.redirect('/posts');
   },
   async getAllPosts(req, res, next) {
     await postsModel.selectPosts(req, res);
@@ -33,11 +33,11 @@ module.exports = {
   },
   async editPost(req, res) {
     await postsModel.updatePost(req, res);
-    res.redirect('/posts/allPosts');
+    res.redirect('/posts');
   },
   async deletePost(req, res) {
     await postsModel.deletePickedPost(req, res);
-    res.redirect('/posts/allPosts');
+    res.redirect('/posts');
   }
 
 }

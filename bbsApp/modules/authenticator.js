@@ -5,7 +5,7 @@ const jwtConfig = {
   secret: 'secret_key',
   options: {
     algorithm: 'HS256',
-    expiresIn: '1m'
+    expiresIn: '10s'
   }
 }
 
@@ -48,6 +48,7 @@ module.exports = {
       jwt.verify(req.session.token, jwtConfig.secret, (error, user) => {
         if (error) {
           res.redirect('/auth/login');
+          return ;
         }
         if (user.name === req.session.username) {
           res.user = {
