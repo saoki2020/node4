@@ -1,7 +1,7 @@
 <%- include('../components/header'); %>
 <%- include('../components/navbar'); %>
 <div class="container mx-5">
-  <form action="../users/allPosts" method="post" class="row needs-validation" novalidate>
+  <form action="../auth/login" method="post" class="row needs-validation" novalidate>
     <legend class="mb-3">Login</legend>
     <div class="mb-3">
       <label for="email" class="form-label">E-Mail Address</label>
@@ -21,7 +21,7 @@
       <input type="checkbox" name="remember" id="remember" class="form-check-input">
       <label for="remember" class="form-check-label">Remember Me</label>
     </div>
-    <button type="submit" name="login" value="login" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Login</button>
     <a href="">Forgot Your Password?</a>
   </form>
 </div>
