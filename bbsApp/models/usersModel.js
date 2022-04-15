@@ -8,10 +8,10 @@ const connection = mysql.createConnection({
 });
 
 // usersテーブルが無ければ作成する
-connection.connect(error => {
+const makeTable = connection.connect(error => {
   if (error) throw error;
   const sql = `CREATE TABLE IF NOT EXISTS users (
-    id SMALLINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
@@ -25,36 +25,40 @@ connection.connect(error => {
 const bcrypt = require('bcrypt');
 const saltRounds =10;
 
-module.exports = {
-  // DBよりユーザ情報を取得し、比較する
-  async compareEmail (req, res) {
+// INSERT or SELECT
+const insertOrSelect = async(req, res, next) => {
+  // ログイン処理：DBよりユーザ情報を取得し、比較する
+  if (req.body.login === 'login') {
     const sql = 'select * from users where email = ?';
     const params = [req.body.email];
-    return new Promise(resolve => {
-      connection.query(sql, params, (error, user) => {
-        if (error)
-          throw new Error('failed SELECT');
-        if (!user[0])
-          throw new Error('email does not found');
-        bcrypt.compare(req.body.password, user[0].password, (error, result) => {
-          if (error) throw new Error('failed compare');
-          if (!result) throw new Error('password is not correct');
-          req.body.name = user[0].name;
-          req.body.userId = user[0].id;
-          resolve();
-        });
+    connection.query(sql, params, (error, user) => {
+      if (error)
+        throw new Error('failed SELECT');
+      if (!user[0])
+        throw new Error('email does not found');
+      bcrypt.compare(req.body.password, user[0].password, (error, result) => {
+        if (error) throw new Error('failed compare');
+        if (!result) throw new Error('password is not correct');
+        req.body.name = user[0].name;
+        next();
       });
-    });
-  },
-
-  // DBにユーザ情報を保存する
-  async insertUserData (req, res) {
+    })
+  }
+  // 新規登録処理：DBにユーザ情報を保存する
+  if (req.body.register === 'register') {
     const sql = "INSERT INTO users (name, email, password) VALUES (?,?,?)";
     const hash = await bcrypt.hash(req.body.password, saltRounds);
     const params = [req.body.name, req.body.email, hash];
     connection.query(sql, params, (error, result) => {
       if (error) throw new Error('failed INSERT');
+      next();
     });
-  },
+  }
+}
 
+
+
+module.exports = {
+  makeTable,
+  insertOrSelect
 }

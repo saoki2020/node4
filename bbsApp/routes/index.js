@@ -1,10 +1,9 @@
 const express = require('express');
-const authController = require('../controllers/authController');
 const router = express.Router();
+const indexController = require('../controllers/indexController');
 const authRoute = require('../routes/authRoute');
-const postRoute = require('../routes/postRoute');
-const likeRoute = require('../routes/likeRoute');
+const userRoute = require('../routes/userRoute');
 
-router.get('/', authController.goLogin);
+router.get('/', indexController.goIndex);
 
-module.exports = [router, authRoute, postRoute, likeRoute]
+module.exports = [router, authRoute, userRoute]

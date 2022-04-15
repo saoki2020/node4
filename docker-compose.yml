@@ -16,7 +16,7 @@ services:
       - ./bbsAppDb/db/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./bbsAppDb/db/sql:/docker-entrypoint-initdb.d
     ports:
-      - 3300:3300
+      - 3306:3306
 
   app:
     image: node:16
