@@ -3,7 +3,7 @@ const postsModel = require('../models/postsModel');
 
 module.exports = {
   goAllPosts(req, res) {
-    res.render('posts/allPosts', { title: `Everyone's Posts`, data: res.user, posts: res.posts} );
+    res.render('posts/allPosts', { title: `Everyone's Posts`, data: res.user, posts: res.posts, likes: res.likes} );
   },
   goMyPost(req, res) {
     res.render('posts/makePost', { title: 'Make new post', data: res.user} );
@@ -18,6 +18,7 @@ module.exports = {
     } else {
       await postsModel.insertPost(req, res);
       res.user = {
+        userId: req.session.userId,
         name: req.session.username
       }
     }

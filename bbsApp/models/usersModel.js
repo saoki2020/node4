@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 connection.connect(error => {
   if (error) throw error;
   const sql = `CREATE TABLE IF NOT EXISTS users (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id SMALLINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
@@ -40,6 +40,7 @@ module.exports = {
           if (error) throw new Error('failed compare');
           if (!result) throw new Error('password is not correct');
           req.body.name = user[0].name;
+          req.body.userId = user[0].id;
           resolve();
         });
       });

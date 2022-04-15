@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 connection.connect(error => {
   if (error) throw error;
   const sql = `CREATE TABLE IF NOT EXISTS posts (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id SMALLINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL

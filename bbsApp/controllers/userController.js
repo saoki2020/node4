@@ -1,12 +1,12 @@
-const userModel = require('../models/usersModel');
+const usersModel = require('../models/usersModel');
 
 module.exports = {
   async getUserName(req, res, next) {
-    await userModel.compareEmail(req, res);
+    await usersModel.compareEmail(req, res);
     next();
   },
   async createUser(req, res, next) {
-    await userModel.insertUserData(req, res);
+    await usersModel.insertUserData(req, res);
     next();
   },
 
