@@ -5,7 +5,7 @@ const jwtConfig = {
   secret: 'secret_key',
   options: {
     algorithm: 'HS256',
-    expiresIn: '10s'
+    expiresIn: '10m'
   }
 }
 
@@ -13,6 +13,7 @@ module.exports = {
   // tokenを生成してリクエストヘッダーに追加
   getToken(req, res, next) {
     const payload = {
+      id: req.body.userId,
       name: req.body.name,
       email: req.body.email
     }
@@ -30,6 +31,7 @@ module.exports = {
       if (error) throw new Error('invalid token');
       if (user.name === req.body.name) {
         res.user = {
+          userId: user.id,
           name: user.name,
           token: token
         };
@@ -52,6 +54,7 @@ module.exports = {
         }
         if (user.name === req.session.username) {
           res.user = {
+            userId: user.id,
             name: user.name,
             token: req.session.token
           };

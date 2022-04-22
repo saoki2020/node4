@@ -1,12 +1,22 @@
 <%- include('../components/header'); %>
 <%- include('../components/navbar_logged_in'); %>
-<% posts.forEach(post => { %>
+<% posts.forEach((post, index) => { %>
   <div class="card border-dark mb-3 mx-auto" style="width: 60rem;">
     <div class="card-body">
       <h5 class="card-title"> <%= post.title  %> </h5>
       <p class="card-text"> <%= post.content %> </p>
       <p class="card-text"> 投稿者： <%= post.name %> </p>
-      <i class="fa-regular fa-heart"></i>
+
+      <form action="/likes" method="POST" class="d-inline">
+        <input type="hidden" name="id" value=" <%= post.id %> " >
+        <% if ( likes.myLikes.includes(post.id) ) { %>
+        <button type="submit" class="btn btn-link"><i class="fa-solid fa-heart"></i></button>
+        <% } else { %>
+        <button type="submit" class="btn btn-link"><i class="fa-regular fa-heart"></i></button>
+        <% } %>
+        <p class="d-inline"> <%= likes.countLikes[index] %> </p>
+      </form>
+
       <% if (post.name == data.name) { %>
         <div class="container mt-3">
           <form action="/posts/editPost" method="GET" class="d-inline">
